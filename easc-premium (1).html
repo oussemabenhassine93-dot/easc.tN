@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ets Amor Seghaier & Cie — Leader de la Pièce Auto en Tunisie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --gold:#b8964e;
+  --gold-l:#d4af6a;
+  --gold-d:#8a6e38;
+  --cream:#f8f5ef;
+  --warm:#f0ebe0;
+  --dark:#0e0c09;
+  --dark2:#161410;
+  --dark3:#1e1b16;
+  --charcoal:#2a2720;
+  --mid:#6b6457;
+  --muted:#9b9187;
+  --white:#fdfaf5;
+  --red:#a0281c;
+}
+body{
+  background:var(--dark);
+  color:var(--white);
+  font-family:'Montserrat',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+}
+
+/* ═══════════════════════════════════
+   LOADER
+═══════════════════════════════════ */
+#loader{
+  position:fixed;inset:0;
+  background:var(--dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#loader.done{opacity:0;visibility:hidden}
+.loader-logo{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:700;
+  letter-spacing:6px;color:var(--gold);
+  margin-bottom:2.5rem;
+  opacity:0;animation:fadeIn .8s .2s forwards;
+}
+.loader-bar-wrap{width:200px;height:1px;background:rgba(184,150,78,.2)}
+.loader-bar{height:1px;background:var(--gold);width:0;animation:loadBar 1.8s .4s ease forwards}
+.loader-sub{
+  margin-top:1.2rem;
+  font-size:.65rem;font-weight:500;letter-spacing:5px;text-transform:uppercase;
+  color:var(--muted);
+  opacity:0;animation:fadeIn .6s .5s forwards;
+}
+@keyframes loadBar{to{width:200px}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ═══════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════ */
+#c-dot{
+  position:fixed;width:6px;height:6px;
+  background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:8000;
+  transform:translate(-50%,-50%);
+  transition:transform .1s;
+}
+#c-ring{
+  position:fixed;width:32px;height:32px;
+  border:1px solid rgba(184,150,78,.45);
+  border-radius:50%;pointer-events:none;z-index:7999;
+  transform:translate(-50%,-50%);
+  transition:all .22s ease, width .3s, height .3s;
+}
+body:has(a:hover) #c-ring,body:has(button:hover) #c-ring{
+  width:48px;height:48px;
+  border-color:var(--gold);
+}
+
+/* ═══════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;
+  transition:background .4s, border-color .4s, box-shadow .4s;
+}
+nav.scrolled{
+  background:rgba(14,12,9,.97);
+  border-bottom:1px solid rgba(184,150,78,.2);
+  box-shadow:0 8px 60px rgba(0,0,0,.5);
+  backdrop-filter:blur(20px);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;letter-spacing:3px;
+  color:var(--white);text-decoration:none;
+  display:flex;align-items:center;gap:.8rem;
+}
+.nav-logo-mark{
+  width:28px;height:28px;
+  border:1.5px solid var(--gold);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;color:var(--gold);
+  letter-spacing:0;font-family:'Montserrat',sans-serif;
+}
+.nav-logo-text span{color:var(--gold)}
+.nav-links{
+  display:flex;align-items:center;gap:2.5rem;list-style:none;
+}
+.nav-links a{
+  color:rgba(253,250,245,.55);
+  text-decoration:none;
+  font-size:.72rem;font-weight:600;
+  letter-spacing:2.5px;text-transform:uppercase;
+  transition:color .25s;
+  position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1px;background:var(--gold);
+  transition:width .35s ease;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.nav-cta-btn{
+  background:var(--gold) !important;color:var(--dark) !important;
+  padding:.5rem 1.6rem;font-weight:700 !important;letter-spacing:2px !important;
+  transition:background .2s, transform .2s !important;
+  color:rgba(253,250,245,1) !important;
+}
+.nav-cta-btn:hover{background:var(--gold-l) !important;transform:translateY(-1px)}
+.nav-cta-btn::after{display:none !important}
+
+/* hamburger */
+.hbg{display:none;flex-direction:column;gap:6px;cursor:pointer;padding:6px;z-index:700}
+.hbg span{width:22px;height:1.5px;background:var(--white);display:block;transition:.3s}
+.mob-nav{
+  display:none;position:fixed;inset:0;
+  background:var(--dark2);z-index:599;
+  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+}
+.mob-nav.open{display:flex}
+.mob-nav a{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:600;
+  color:var(--white);text-decoration:none;letter-spacing:3px;
+  transition:color .2s;
+}
+.mob-nav a:hover{color:var(--gold)}
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+#accueil{
+  min-height:100vh;position:relative;
+  display:flex;align-items:center;
+  overflow:hidden;padding-top:72px;
+}
+/* animated background */
+.hero-canvas{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 70% at 75% 55%, rgba(184,150,78,.06) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 20% 30%, rgba(160,40,28,.05) 0%, transparent 60%),
+    var(--dark);
+}
+/* gold geometric lines */
+.hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-lines::before{
+  content:'';position:absolute;
+  top:-10%;right:15%;width:1px;height:120%;
+  background:linear-gradient(to bottom,transparent,rgba(184,150,78,.25),transparent);
+  transform:rotate(12deg);
+}
+.hero-lines::after{
+  content:'';position:absolute;
+  top:-10%;right:25%;width:1px;height:120%;
+  background:linear-gradient(to bottom,transparent,rgba(184,150,78,.1),transparent);
+  transform:rotate(12deg);
+}
+.hero-grain{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;padding:0 6%;width:100%}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:1rem;
+  font-size:.65rem;font-weight:600;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2rem;
+  opacity:0;animation:riseUp .7s .8s ease forwards;
+}
+.hero-eyebrow-rule{width:40px;height:1px;background:var(--gold)}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.5rem,8vw,7.5rem);
+  font-weight:900;line-height:.92;
+  letter-spacing:-1px;
+  opacity:0;animation:riseUp .9s .95s ease forwards;
+}
+.hero-title .t1{display:block;color:var(--white)}
+.hero-title .t2{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--gold);
+}
+.hero-title .t3{display:block;color:var(--white)}
+.hero-rule{
+  width:80px;height:1px;background:var(--gold);
+  margin:2.2rem 0;
+  opacity:0;animation:expandW .8s 1.2s ease forwards;
+}
+@keyframes expandW{from{width:0;opacity:0}to{width:80px;opacity:1}}
+.hero-desc{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-style:italic;font-weight:300;
+  color:rgba(253,250,245,.6);line-height:1.75;max-width:500px;
+  opacity:0;animation:riseUp .8s 1.3s ease forwards;
+}
+.hero-actions{
+  margin-top:3rem;display:flex;gap:1.2rem;flex-wrap:wrap;
+  opacity:0;animation:riseUp .8s 1.5s ease forwards;
+}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:.8rem;
+  background:var(--gold);color:var(--dark);
+  padding:1rem 2.4rem;border:none;cursor:pointer;
+  font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  text-decoration:none;
+  transition:background .25s,transform .25s,gap .25s;
+}
+.btn-gold:hover{background:var(--gold-l);transform:translateY(-3px);gap:1.1rem}
+.btn-border{
+  display:inline-flex;align-items:center;gap:.8rem;
+  background:transparent;color:var(--white);
+  padding:1rem 2.4rem;
+  border:1px solid rgba(184,150,78,.4);cursor:pointer;
+  font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  text-decoration:none;
+  transition:border-color .25s,transform .25s,gap .25s;
+}
+.btn-border:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);gap:1.1rem}
+
+/* hero right panel */
+.hero-right{
+  position:absolute;right:6%;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:0;
+  opacity:0;animation:slideInR .9s 1.6s ease forwards;
+}
+.hero-stat{
+  padding:1.8rem 2.5rem;
+  border-left:1px solid rgba(184,150,78,.2);
+  position:relative;
+}
+.hero-stat::before{
+  content:'';position:absolute;top:0;left:-1px;
+  width:1px;height:0;background:var(--gold);
+  transition:height .4s ease;
+}
+.hero-stat:hover::before{height:100%}
+.hs-val{
+  font-family:'Playfair Display',serif;
+  font-size:3.2rem;font-weight:900;
+  color:var(--gold);line-height:1;
+}
+.hs-lbl{
+  font-size:.62rem;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+  margin-top:.4rem;
+}
+.hero-scroll-hint{
+  position:absolute;bottom:2.5rem;left:6%;
+  display:flex;align-items:center;gap:1rem;
+  font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;
+  color:var(--muted);
+  opacity:0;animation:riseUp .6s 2s ease forwards;
+}
+.scroll-line{width:50px;height:1px;background:rgba(184,150,78,.4)}
+
+/* ═══════════════════════════════════
+   TRUST BAR
+═══════════════════════════════════ */
+.trust-bar{
+  background:var(--dark3);
+  border-top:1px solid rgba(184,150,78,.15);
+  border-bottom:1px solid rgba(184,150,78,.15);
+  padding:1.5rem 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  overflow:hidden;
+}
+.tb-item{
+  display:flex;align-items:center;gap:.8rem;
+  font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);
+  transition:color .2s;
+}
+.tb-item:hover{color:var(--gold)}
+.tb-item-icon{color:var(--gold);font-size:1rem}
+.tb-divider{width:1px;height:30px;background:rgba(184,150,78,.15)}
+
+/* ═══════════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════════ */
+section{padding:120px 6%}
+.sec-label{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.62rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+}
+.sec-label::before{content:'';width:24px;height:1px;background:var(--gold)}
+.sec-h{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,4.5vw,4rem);
+  font-weight:700;line-height:1.05;
+  color:var(--white);margin-bottom:1.2rem;
+}
+.sec-h em{font-style:italic;color:var(--gold)}
+.sec-rule{width:50px;height:1px;background:var(--gold);margin:.8rem 0 2.5rem}
+.sec-body{
+  font-size:.95rem;font-weight:300;
+  color:var(--muted);line-height:1.9;max-width:520px;
+}
+
+/* ═══════════════════════════════════
+   ABOUT
+═══════════════════════════════════ */
+#nous-sommes{
+  background:var(--dark2);
+  position:relative;overflow:hidden;
+}
+#nous-sommes::before{
+  content:'1976';
+  position:absolute;right:-2%;bottom:0;
+  font-family:'Playfair Display',serif;
+  font-size:22vw;font-weight:900;
+  color:rgba(184,150,78,.04);line-height:1;
+  pointer-events:none;user-select:none;
+}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:7rem;align-items:center;margin-top:4rem;
+}
+.about-visual{position:relative;height:500px}
+.av-main{
+  position:absolute;top:0;left:0;
+  width:75%;height:82%;
+  background:var(--charcoal);
+  border:1px solid rgba(184,150,78,.12);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.av-main-inner{text-align:center}
+.av-main-yr{
+  font-family:'Playfair Display',serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(184,150,78,.15);line-height:1;
+  display:block;
+}
+.av-main-tag{
+  font-size:.65rem;font-weight:700;letter-spacing:4px;
+  text-transform:uppercase;color:var(--gold);
+  margin-top:.5rem;
+}
+.av-corner{
+  position:absolute;bottom:0;right:0;
+  width:48%;height:44%;
+  background:var(--gold);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:1.5rem;
+}
+.av-corner-num{
+  font-family:'Playfair Display',serif;
+  font-size:3.8rem;font-weight:900;
+  color:var(--dark);line-height:1;
+}
+.av-corner-lbl{
+  font-size:.6rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(14,12,9,.6);
+  margin-top:.4rem;
+}
+.av-badge{
+  position:absolute;top:35%;left:62%;
+  background:var(--dark);
+  border:1px solid var(--gold);
+  padding:.7rem 1.1rem;
+  font-size:.62rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);
+  white-space:nowrap;
+}
+.gold-line{
+  position:absolute;top:0;left:0;
+  width:3px;height:0;background:var(--gold);
+  animation:growLine 1s 1.5s ease forwards;
+}
+@keyframes growLine{to{height:100%}}
+.about-points{display:flex;flex-direction:column;gap:2rem;margin-top:2.5rem}
+.ap{
+  display:flex;gap:1.4rem;align-items:flex-start;
+  padding-bottom:2rem;
+  border-bottom:1px solid rgba(184,150,78,.08);
+}
+.ap:last-child{border-bottom:none;padding-bottom:0}
+.ap-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:900;
+  color:rgba(184,150,78,.2);line-height:1;
+  flex-shrink:0;width:50px;
+}
+.ap-text h4{
+  font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.5rem;
+}
+.ap-text p{font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.8}
+
+/* ═══════════════════════════════════
+   SERVICES
+═══════════════════════════════════ */
+#nos-services{background:var(--dark)}
+.svc-intro{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-wrap:wrap;gap:2rem;margin-bottom:5rem;
+}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(184,150,78,.08);
+}
+.svc{
+  background:var(--dark);padding:3rem 2.2rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+  cursor:default;
+}
+.svc::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(184,150,78,.06) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.svc:hover{background:var(--dark2)}
+.svc:hover::before{opacity:1}
+.svc-n{
+  font-family:'Playfair Display',serif;
+  font-size:4rem;font-weight:900;
+  color:rgba(184,150,78,.08);line-height:1;
+  margin-bottom:1rem;
+  transition:color .3s;
+}
+.svc:hover .svc-n{color:rgba(184,150,78,.18)}
+.svc-ico{font-size:1.8rem;margin-bottom:1.2rem}
+.svc h3{
+  font-size:.8rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--white);margin-bottom:.8rem;
+}
+.svc p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.75}
+.svc-arrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-top:1.5rem;
+  font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);opacity:0;
+  transition:opacity .3s, gap .3s;
+}
+.svc:hover .svc-arrow{opacity:1;gap:.8rem}
+
+/* ═══════════════════════════════════
+   BRANDS
+═══════════════════════════════════ */
+#nos-marques{
+  background:var(--dark2);
+  position:relative;
+}
+.brands-layout{
+  display:grid;grid-template-columns:380px 1fr;
+  gap:7rem;align-items:start;margin-top:4rem;
+}
+.brands-sidebar{position:sticky;top:100px}
+.dist-card{
+  background:var(--charcoal);
+  border:1px solid rgba(184,150,78,.15);
+  border-top:2px solid var(--gold);
+  padding:2.5rem;margin-top:2.5rem;
+}
+.dist-card h4{
+  font-size:.62rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+}
+.dist-card p{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.8}
+.brand-sections{display:flex;flex-direction:column;gap:3rem}
+.bs{padding-bottom:3rem;border-bottom:1px solid rgba(184,150,78,.08)}
+.bs:last-child{border-bottom:none;padding-bottom:0}
+.bs-title{
+  font-size:.62rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.4rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.bs-title::after{content:'';flex:1;height:1px;background:rgba(184,150,78,.15)}
+.pills{display:flex;flex-wrap:wrap;gap:.7rem}
+.pill{
+  padding:.65rem 1.5rem;
+  border:1px solid rgba(184,150,78,.18);
+  font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);cursor:default;
+  transition:all .25s;
+}
+.pill:hover{
+  border-color:var(--gold);color:var(--gold);
+  background:rgba(184,150,78,.06);transform:translateY(-2px);
+}
+
+/* ═══════════════════════════════════
+   STORES
+═══════════════════════════════════ */
+#magasins{background:var(--dark)}
+.stores-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-wrap:wrap;gap:2rem;margin-bottom:4rem;
+}
+.hours-panel{
+  background:var(--dark2);
+  border:1px solid rgba(184,150,78,.12);
+  border-left:2px solid var(--gold);
+  padding:2rem 2.5rem;min-width:300px;
+}
+.hours-panel h4{
+  font-size:.62rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.4rem;
+}
+.hr{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:2rem;padding:.5rem 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.hr:last-child{border-bottom:none}
+.hr span{font-size:.82rem;font-weight:400;color:var(--muted)}
+.hr strong{font-size:.78rem;font-weight:600;color:var(--white);text-align:right}
+.stores-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;
+}
+.store-card{
+  background:var(--dark2);
+  border:1px solid rgba(184,150,78,.1);
+  padding:2.5rem;position:relative;overflow:hidden;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.store-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s ease;
+}
+.store-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  border-color:rgba(184,150,78,.25);
+}
+.store-card:hover::before{transform:scaleX(1)}
+.store-badge{
+  position:absolute;top:1.5rem;right:1.5rem;
+  background:rgba(184,150,78,.12);
+  border:1px solid rgba(184,150,78,.25);
+  padding:.3rem .8rem;
+  font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);
+}
+.store-card h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;font-weight:600;
+  color:var(--white);margin-bottom:1.6rem;
+}
+.sr{display:flex;gap:.9rem;align-items:baseline;margin-bottom:.7rem}
+.sr-ico{color:var(--gold);font-size:.85rem;flex-shrink:0;width:16px;line-height:1.5}
+.sr span,.sr a{font-size:.83rem;font-weight:300;color:var(--muted);text-decoration:none;line-height:1.6;transition:color .2s}
+.sr a:hover{color:var(--gold)}
+.store-link{
+  display:inline-flex;align-items:center;gap:.6rem;
+  margin-top:1.6rem;
+  font-size:.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;
+  transition:gap .25s;
+}
+.store-link:hover{gap:.9rem}
+
+/* ═══════════════════════════════════
+   CONTACT
+═══════════════════════════════════ */
+#contact{background:var(--dark2)}
+.contact-layout{
+  display:grid;grid-template-columns:1fr 420px;
+  gap:6rem;margin-top:4rem;align-items:start;
+}
+
+/* form */
+.form-wrap{display:flex;flex-direction:column;gap:1.4rem}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.fg{display:flex;flex-direction:column;gap:.6rem}
+.fg label{
+  font-size:.62rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);
+}
+.req{color:var(--gold)}
+.fg input,.fg select,.fg textarea{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(184,150,78,.15);
+  color:var(--white);
+  font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:300;
+  padding:.95rem 1.1rem;outline:none;
+  transition:border-color .3s,background .3s;
+  appearance:none;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--mid)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:var(--gold);
+  background:rgba(184,150,78,.04);
+}
+.fg select option{background:var(--dark2);color:var(--white)}
+.fg textarea{resize:vertical;min-height:140px;font-family:'Montserrat',sans-serif}
+.f-btn{
+  display:inline-flex;align-items:center;gap:.8rem;align-self:flex-start;
+  background:var(--gold);color:var(--dark);
+  padding:1.1rem 2.6rem;border:none;cursor:pointer;
+  font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  transition:background .25s,gap .25s,transform .25s;
+}
+.f-btn:hover{background:var(--gold-l);gap:1.2rem;transform:translateY(-2px)}
+.f-ok{
+  display:none;padding:.8rem 1.2rem;
+  background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.3);
+  color:#2ecc71;font-size:.8rem;font-weight:500;letter-spacing:1px;
+  margin-top:.5rem;
+}
+.f-ok.show{display:block}
+.f-err{
+  display:none;padding:.8rem 1.2rem;
+  background:rgba(160,40,28,.1);border:1px solid rgba(160,40,28,.3);
+  color:#e74c3c;font-size:.8rem;font-weight:500;letter-spacing:1px;
+  margin-top:.5rem;
+}
+.f-err.show{display:block}
+
+/* info panel */
+.ci{display:flex;flex-direction:column;gap:0}
+.ci-item{padding:1.8rem 0;border-bottom:1px solid rgba(184,150,78,.08)}
+.ci-item:last-child{border-bottom:none}
+.ci-lbl{
+  font-size:.6rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.9rem;
+  display:flex;align-items:center;gap:.7rem;
+}
+.ci-lbl::before{content:'';width:16px;height:1px;background:var(--gold)}
+.ci-val{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.9}
+.ci-val a{color:var(--muted);text-decoration:none;transition:color .2s}
+.ci-val a:hover{color:var(--gold)}
+.ci-hrs{display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem}
+.ch{display:flex;justify-content:space-between;font-size:.82rem}
+.ch span{color:var(--muted)}
+.ch strong{color:var(--white)}
+.ch.cl strong{color:var(--mid)}
+
+/* ═══════════════════════════════════
+   PRESTIGE BANNER
+═══════════════════════════════════ */
+.prestige{
+  background:var(--charcoal);
+  border-top:1px solid rgba(184,150,78,.15);
+  border-bottom:1px solid rgba(184,150,78,.15);
+  padding:4rem 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:2rem;
+  position:relative;overflow:hidden;
+}
+.prestige::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(184,150,78,.05) 0%,transparent 50%);
+}
+.prestige-left{position:relative;z-index:1}
+.prestige-left h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;
+  line-height:1.15;margin-bottom:.6rem;
+}
+.prestige-left h2 em{font-style:italic;color:var(--gold)}
+.prestige-left p{font-size:.88rem;font-weight:300;color:var(--muted);max-width:440px;line-height:1.7}
+.prestige-right{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;
+}
+.prestige-right a{
+  color:var(--muted);text-decoration:none;
+  font-size:.88rem;font-weight:300;line-height:1.7;
+  transition:color .2s;
+  display:flex;align-items:center;gap:.6rem;justify-content:flex-end;
+}
+.prestige-right a:hover{color:var(--gold)}
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer{
+  background:var(--dark);
+  border-top:1px solid rgba(184,150,78,.1);
+  padding:3rem 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.foot-brand{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:2px;color:var(--white);
+}
+.foot-brand span{color:var(--gold)}
+.foot-nav{display:flex;gap:1.8rem;flex-wrap:wrap}
+.foot-nav a{
+  font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .2s;
+}
+.foot-nav a:hover{color:var(--gold)}
+.foot-copy{font-size:.7rem;font-weight:300;color:var(--mid)}
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInR{from{opacity:0;transform:translate(30px,-50%)}to{opacity:1;transform:translate(0,-50%)}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.on{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .8s ease,transform .8s ease}
+.reveal-l.on{opacity:1;transform:none}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal-r.on{opacity:1;transform:none}
+
+/* delay helpers */
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ═══════════════════════════════════
+   TICKER
+═══════════════════════════════════ */
+.ticker-wrap{
+  overflow:hidden;
+  background:var(--charcoal);
+  border-top:1px solid rgba(184,150,78,.18);
+  border-bottom:1px solid rgba(184,150,78,.18);
+  padding:.9rem 0;
+  white-space:nowrap;
+}
+.ticker-track{
+  display:inline-flex;gap:1.8rem;align-items:center;
+  animation:ticker 40s linear infinite;
+  will-change:transform;
+}
+.ticker-track span{
+  font-family:'Playfair Display',serif;
+  font-size:.78rem;font-weight:700;letter-spacing:3px;
+  color:var(--muted);
+  transition:color .2s;
+}
+.ticker-track span:not(:nth-child(2n)){color:var(--gold);opacity:.7}
+.ticker-wrap:hover .ticker-track{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════
+   BRANDS BLOCK
+═══════════════════════════════════ */
+.brands-block{
+  border:1px solid rgba(184,150,78,.12);
+  background:var(--dark2);
+  padding:2.5rem;
+}
+.brands-block-header{
+  display:flex;align-items:center;gap:1.2rem;
+  margin-bottom:2rem;
+  padding-bottom:1.5rem;
+  border-bottom:1px solid rgba(184,150,78,.1);
+}
+.bh-icon{font-size:2rem}
+.bh-label{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:600;color:var(--white);
+  margin-bottom:.3rem;
+}
+.bh-sub{
+  font-size:.7rem;font-weight:500;letter-spacing:2px;
+  text-transform:uppercase;color:var(--muted);
+}
+.brand-logo-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  gap:1px;background:rgba(184,150,78,.08);
+}
+.blg-item{
+  background:var(--dark2);
+  padding:1.4rem 1rem;
+  text-align:center;
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:700;letter-spacing:2px;
+  color:rgba(253,250,245,.45);
+  transition:background .25s,color .25s,transform .25s;
+  cursor:default;
+  border:1px solid transparent;
+}
+.blg-item:hover{
+  background:var(--charcoal);
+  color:var(--gold);
+  transform:scale(1.03);
+  border-color:rgba(184,150,78,.2);
+  z-index:1;position:relative;
+}
+.blg-item.blg-premium{
+  color:rgba(184,150,78,.6);
+  border-bottom:2px solid rgba(184,150,78,.2);
+}
+.blg-item.blg-premium:hover{color:var(--gold-l)}
+
+/* ═══════════════════════════════════
+   PARTNERS BLOCK
+═══════════════════════════════════ */
+.partners-block{
+  background:var(--charcoal);
+  border:1px solid rgba(184,150,78,.12);
+  border-top:2px solid var(--gold);
+  padding:3rem;
+}
+.partners-h{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:700;color:var(--white);
+  margin-bottom:.5rem;
+}
+.partners-h em{font-style:italic;color:var(--gold)}
+.partners-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:1px;background:rgba(184,150,78,.07);
+  margin-top:0;
+}
+.partner-card{
+  background:var(--dark2);
+  padding:1.6rem 1.4rem;
+  transition:background .25s,border-color .25s;
+  cursor:default;
+  border:1px solid transparent;
+  position:relative;overflow:hidden;
+}
+.partner-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;width:0;height:2px;
+  background:var(--gold);
+  transition:width .35s ease;
+}
+.partner-card:hover{background:var(--charcoal);border-color:rgba(184,150,78,.15)}
+.partner-card:hover::after{width:100%}
+.partner-card.pc-highlight{
+  background:rgba(184,150,78,.07);
+  border-color:rgba(184,150,78,.2);
+}
+.partner-card.pc-highlight .pc-name{color:var(--gold)}
+.pc-name{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:700;
+  color:var(--white);letter-spacing:1px;
+  margin-bottom:.35rem;
+  transition:color .2s;
+}
+.partner-card:hover .pc-name{color:var(--gold)}
+.pc-cat{
+  font-size:.62rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media(max-width:1100px){
+  .brands-layout{grid-template-columns:1fr}
+  .brands-sidebar{position:static}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hbg{display:flex}
+  .hero-right{display:none}
+  .about-grid,.contact-layout,.stores-grid{grid-template-columns:1fr}
+  .about-visual{height:300px}
+  .f2{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .stores-head{flex-direction:column;align-items:flex-start}
+  .prestige{flex-direction:column;text-align:center}
+  .prestige-right{align-items:center}
+  footer{flex-direction:column;text-align:center;align-items:center}
+  #c-dot,#c-ring{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">EASC</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-sub">Etablissement Amor Seghaier &amp; Cie</div>
+</div>
+
+<!-- CURSOR -->
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+
+<!-- ════════════════════════
+     NAVIGATION
+════════════════════════ -->
+<nav id="nav">
+  <a href="#accueil" class="nav-logo">
+    <div class="nav-logo-mark">E</div>
+    <div class="nav-logo-text"><span>AMOR</span> SEGHAIER</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#nous-sommes">À Propos</a></li>
+    <li><a href="#nos-services">Services</a></li>
+    <li><a href="#nos-marques">Marques</a></li>
+    <li><a href="#magasins">Magasins</a></li>
+    <li><a href="#contact" class="nav-cta-btn">Contact</a></li>
+  </ul>
+  <div class="hbg" id="hbg" onclick="toggleMob()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#accueil" onclick="toggleMob()">Accueil</a>
+  <a href="#nous-sommes" onclick="toggleMob()">À Propos</a>
+  <a href="#nos-services" onclick="toggleMob()">Services</a>
+  <a href="#nos-marques" onclick="toggleMob()">Marques</a>
+  <a href="#magasins" onclick="toggleMob()">Magasins</a>
+  <a href="#contact" onclick="toggleMob()">Contact</a>
+</div>
+
+<!-- ════════════════════════
+     HERO
+════════════════════════ -->
+<section id="accueil">
+  <div class="hero-canvas"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-rule"></span>
+      Distributeur Officiel · Fondé en 1976 · Tunisie
+    </div>
+    <h1 class="hero-title">
+      <span class="t1">LEADER DE LA</span>
+      <span class="t2">PIÈCE AUTO</span>
+      <span class="t1">EN TUNISIE</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-desc">
+      Depuis 1976, votre partenaire de confiance pour toutes les pièces détachées automobiles et poids lourds — qualité premium, prix imbattables.
+    </p>
+    <div class="hero-actions">
+      <a href="#nos-services" class="btn-gold">Nos Services →</a>
+      <a href="#contact" class="btn-border">Nous Contacter →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat"><div class="hs-val">47</div><div class="hs-lbl">Ans d'Expertise</div></div>
+    <div class="hero-stat"><div class="hs-val">4</div><div class="hs-lbl">Points de Vente</div></div>
+    <div class="hero-stat"><div class="hs-val">2000</div><div class="hs-lbl">m² de Stockage</div></div>
+    <div class="hero-stat"><div class="hs-val">20+</div><div class="hs-lbl">Professionnels</div></div>
+  </div>
+  <div class="hero-scroll-hint"><div class="scroll-line"></div>Défiler pour découvrir</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="tb-item"><span class="tb-item-icon">✦</span>Iveco · Scania · Volvo · MAN · BMW · Mercedes</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span class="tb-item-icon">✦</span>Distributeur TotalEnergies &amp; OLA</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span class="tb-item-icon">✦</span>4 Magasins en Tunisie</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span class="tb-item-icon">✦</span>Plus de 40 Ans d'Expertise</div>
+  <div class="tb-divider"></div>
+  <div class="tb-item"><span class="tb-item-icon">✦</span>Personnel Qualifié</div>
+</div>
+
+<!-- ════════════════════════
+     À PROPOS
+════════════════════════ -->
+<section id="nous-sommes">
+  <div class="sec-label reveal">Notre Histoire</div>
+  <h2 class="sec-h reveal d1">Fournisseur Officiel<br><em>Depuis 1976</em></h2>
+  <div class="sec-rule reveal d2"></div>
+  <div class="about-grid">
+    <div class="about-visual reveal-l">
+      <div class="av-main">
+        <div class="av-main-inner">
+          <span class="av-main-yr">1976</span>
+          <span class="av-main-tag">Année de Fondation</span>
+        </div>
+      </div>
+      <div class="av-corner">
+        <span class="av-corner-num">2000</span>
+        <span class="av-corner-lbl">m² de Surface</span>
+      </div>
+      <div class="av-badge">Fondé en 1976</div>
+      <div class="gold-line"></div>
+    </div>
+    <div class="reveal-r">
+      <p class="sec-body">
+        Depuis sa fondation en 1976, Ets Amor Seghaier &amp; Cie n'a cessé de poursuivre ses efforts pour mettre à disposition localement toutes les pièces nécessaires à l'entretien et la réparation de tous types de véhicules en Tunisie.
+      </p>
+      <div class="about-points">
+        <div class="ap">
+          <div class="ap-num">01</div>
+          <div class="ap-text">
+            <h4>Infrastructure Moderne</h4>
+            <p>Un magasin central de 2 000 m² piloté par plus de 20 professionnels dédiés à la réception, au rangement et à l'expédition de vos commandes.</p>
+          </div>
+        </div>
+        <div class="ap">
+          <div class="ap-num">02</div>
+          <div class="ap-text">
+            <h4>Personnel Expert</h4>
+            <p>Nos vendeurs sont tous issus du secteur mécanique — anciens garagistes et carrossiers qualifiés pour vous conseiller avec précision.</p>
+          </div>
+        </div>
+        <div class="ap">
+          <div class="ap-num">03</div>
+          <div class="ap-text">
+            <h4>Prix Défiant Toute Concurrence</h4>
+            <p>Grâce à des accords historiques avec les plus grands fournisseurs mondiaux, nous proposons des prix imbattables sur toutes les marques.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     SERVICES
+════════════════════════ -->
+<section id="nos-services">
+  <div class="svc-intro">
+    <div>
+      <div class="sec-label reveal">Nos Services</div>
+      <h2 class="sec-h reveal d1">Ce Que<br><em>Nous Proposons</em></h2>
+      <div class="sec-rule reveal d2"></div>
+    </div>
+    <p class="sec-body reveal" style="max-width:340px">
+      Des remises exceptionnelles pour la réparation de votre véhicule. Une gamme complète couvrant toutes vos exigences.
+    </p>
+  </div>
+  <div class="svc-grid reveal">
+    <div class="svc">
+      <div class="svc-n">01</div>
+      <div class="svc-ico">🚗</div>
+      <h3>Pièces Auto Neuves</h3>
+      <p>Le plus grand spécialiste de la vente de pièces auto neuves — toutes marques, tous modèles, disponibilité immédiate.</p>
+      <div class="svc-arrow">En savoir plus →</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">02</div>
+      <div class="svc-ico">🚛</div>
+      <h3>Pièces Poids Lourds</h3>
+      <p>Gamme complète de pièces détachées pour poids lourds. Économisez sans jamais compromettre la qualité ou la sécurité.</p>
+      <div class="svc-arrow">En savoir plus →</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">03</div>
+      <div class="svc-ico">🛢️</div>
+      <h3>Lubrifiants Premium</h3>
+      <p>Distributeur officiel Shell, Total Energy, OLA Energy, ARECA et Kolbenschmidt au centre et au Sahel tunisien.</p>
+      <div class="svc-arrow">En savoir plus →</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">04</div>
+      <div class="svc-ico">⚙️</div>
+      <h3>Filtres Automobiles</h3>
+      <p>Gamme complète : filtres à essence, gasoil, huile et air. Marques Alco Filtre et Misfat — qualité certifiée.</p>
+      <div class="svc-arrow">En savoir plus →</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">05</div>
+      <div class="svc-ico">🔩</div>
+      <h3>Freinage &amp; Suspensions</h3>
+      <p>Plaquettes, disques et mâchoires (Metelli, Fri.Tech, ICER Brakes) et suspensions automobiles de marque OCAP.</p>
+      <div class="svc-arrow">En savoir plus →</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">06</div>
+      <div class="svc-ico">🌡️</div>
+      <h3>Radiateurs &amp; Ressorts</h3>
+      <p>Radiateurs Nissens, NRF et AHE. Ressorts à lames conventionnels et paraboliques de marque COLMAR.</p>
+      <div class="svc-arrow">En savoir plus →</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>IVECO</span><span>✦</span><span>SCANIA</span><span>✦</span><span>VOLVO</span><span>✦</span><span>ISUZU</span><span>✦</span><span>MAN</span><span>✦</span><span>OM</span><span>✦</span><span>MITSUBISHI</span><span>✦</span><span>CEHL</span><span>✦</span><span>MERLO</span><span>✦</span><span>TEREX</span><span>✦</span><span>LINDE</span><span>✦</span><span>CLARK</span><span>✦</span><span>DEUTZ</span><span>✦</span><span>CUMMINS</span><span>✦</span><span>PERKINS</span><span>✦</span><span>YANMAR</span><span>✦</span><span>BMW</span><span>✦</span><span>MERCEDES</span><span>✦</span><span>VOLKSWAGEN</span><span>✦</span><span>AUDI</span><span>✦</span><span>SEAT</span><span>✦</span><span>SKODA</span><span>✦</span><span>IVECO</span><span>✦</span><span>SCANIA</span><span>✦</span><span>VOLVO</span><span>✦</span><span>ISUZU</span><span>✦</span><span>MAN</span><span>✦</span><span>OM</span><span>✦</span><span>MITSUBISHI</span><span>✦</span><span>CEHL</span><span>✦</span><span>MERLO</span><span>✦</span><span>TEREX</span><span>✦</span><span>LINDE</span><span>✦</span><span>CLARK</span><span>✦</span><span>DEUTZ</span><span>✦</span><span>CUMMINS</span><span>✦</span><span>PERKINS</span><span>✦</span><span>YANMAR</span><span>✦</span><span>BMW</span><span>✦</span><span>MERCEDES</span><span>✦</span><span>VOLKSWAGEN</span><span>✦</span><span>AUDI</span><span>✦</span><span>SEAT</span><span>✦</span><span>SKODA</span><span>✦</span>
+  </div>
+</div>
+
+<!-- MARQUES -->
+<section id="nos-marques">
+  <div class="sec-label reveal">Références &amp; Couverture</div>
+  <h2 class="sec-h reveal d1">Nos Marques &amp;<br><em>Nos Partenaires</em></h2>
+  <div class="sec-rule reveal d2"></div>
+  <p class="sec-body reveal d3" style="margin-bottom:3.5rem">Nous couvrons les plus grandes marques mondiales de véhicules industriels, agricoles et automobiles, et travaillons avec les meilleurs fournisseurs de pièces certifiées.</p>
+
+  <div class="brands-block reveal">
+    <div class="brands-block-header">
+      <div class="bh-icon">🚛</div>
+      <div>
+        <div class="bh-label">Véhicules Industriels &amp; Poids Lourds</div>
+        <div class="bh-sub">Camions · Engins de chantier · Matériel agricole · Moteurs</div>
+      </div>
+    </div>
+    <div class="brand-logo-grid">
+      <div class="blg-item">IVECO</div>
+      <div class="blg-item">SCANIA</div>
+      <div class="blg-item">VOLVO</div>
+      <div class="blg-item">ISUZU</div>
+      <div class="blg-item">MAN</div>
+      <div class="blg-item">OM</div>
+      <div class="blg-item">MITSUBISHI</div>
+      <div class="blg-item">CEHL</div>
+      <div class="blg-item">MERLO</div>
+      <div class="blg-item">TEREX</div>
+      <div class="blg-item">LINDE</div>
+      <div class="blg-item">CLARK</div>
+      <div class="blg-item">DEUTZ</div>
+      <div class="blg-item">CUMMINS</div>
+      <div class="blg-item">PERKINS</div>
+      <div class="blg-item">YANMAR</div>
+    </div>
+  </div>
+
+  <div class="brands-block reveal" style="margin-top:2rem">
+    <div class="brands-block-header">
+      <div class="bh-icon">🚗</div>
+      <div>
+        <div class="bh-label">Véhicules Automobiles</div>
+        <div class="bh-sub">Voitures particulières · Véhicules utilitaires</div>
+      </div>
+    </div>
+    <div class="brand-logo-grid">
+      <div class="blg-item blg-premium">BMW</div>
+      <div class="blg-item blg-premium">MERCEDES</div>
+      <div class="blg-item blg-premium">AUDI</div>
+      <div class="blg-item">VOLKSWAGEN</div>
+      <div class="blg-item">SEAT</div>
+      <div class="blg-item">SKODA</div>
+    </div>
+  </div>
+
+  <div class="partners-block reveal" style="margin-top:5rem">
+    <div class="sec-label" style="margin-bottom:1rem">Fournisseurs Officiels</div>
+    <h3 class="partners-h">Partenaires <em>de Confiance</em></h3>
+    <div class="sec-rule"></div>
+    <div class="partners-grid">
+      <div class="partner-card"><div class="pc-name">CEI</div><div class="pc-cat">Équipements Industriels</div></div>
+      <div class="partner-card"><div class="pc-name">CORTECO</div><div class="pc-cat">Joints &amp; Étanchéité</div></div>
+      <div class="partner-card"><div class="pc-name">EMMERRE</div><div class="pc-cat">Pièces Détachées</div></div>
+      <div class="partner-card"><div class="pc-name">FEDERAL-MOGUL</div><div class="pc-cat">Composants Moteur</div></div>
+      <div class="partner-card"><div class="pc-name">GARRETT</div><div class="pc-cat">Turbocompresseurs</div></div>
+      <div class="partner-card"><div class="pc-name">MS MOTORSERVICE</div><div class="pc-cat">Service Moteur</div></div>
+      <div class="partner-card"><div class="pc-name">LEMA</div><div class="pc-cat">Pièces Auto</div></div>
+      <div class="partner-card"><div class="pc-name">METELLI GROUP</div><div class="pc-cat">Freinage &amp; Transmission</div></div>
+      <div class="partner-card"><div class="pc-name">FEBI BILSTEIN</div><div class="pc-cat">Pièces de Châssis</div></div>
+      <div class="partner-card"><div class="pc-name">COVIND</div><div class="pc-cat">Poids Lourds</div></div>
+      <div class="partner-card"><div class="pc-name">TOPRAN</div><div class="pc-cat">Pièces Automobiles</div></div>
+      <div class="partner-card"><div class="pc-name">REAL</div><div class="pc-cat">Distribution</div></div>
+      <div class="partner-card"><div class="pc-name">MISFAT</div><div class="pc-cat">Filtration</div></div>
+      <div class="partner-card"><div class="pc-name">OLA</div><div class="pc-cat">Lubrifiants</div></div>
+      <div class="partner-card pc-highlight"><div class="pc-name">TOTALENERGIES</div><div class="pc-cat">Distributeur Officiel</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     MAGASINS
+════════════════════════ -->
+<section id="magasins">
+  <div class="stores-head">
+    <div>
+      <div class="sec-label reveal">Réseau</div>
+      <h2 class="sec-h reveal d1">Nos 4 Points<br><em>De Vente</em></h2>
+      <div class="sec-rule reveal d2"></div>
+    </div>
+    <div class="hours-panel reveal">
+      <h4>🕐 Horaires d'Ouverture</h4>
+      <div class="hr"><span>Lundi – Jeudi</span><strong>08:00–13:00 / 14:00–17:00</strong></div>
+      <div class="hr"><span>Vendredi</span><strong>08:00–12:00 / 14:00–17:00</strong></div>
+      <div class="hr"><span>Samedi</span><strong>08:00–13:00</strong></div>
+      <div class="hr"><span>Dimanche</span><strong style="color:var(--mid)">Fermé</strong></div>
+    </div>
+  </div>
+  <div class="stores-grid">
+    <div class="store-card reveal d1">
+      <div class="store-badge">Siège Central</div>
+      <h3>Magasin Akouda</h3>
+      <div class="sr"><span class="sr-ico">📍</span><span>Rte de Tunis Km6 – 4022 Akouda – B.P.155</span></div>
+      <div class="sr"><span class="sr-ico">📞</span><span>73 342 113 / 114 / 115</span></div>
+      <div class="sr"><span class="sr-ico">📠</span><span>Fax : 70 279 377</span></div>
+      <div class="sr"><span class="sr-ico">📱</span><span>93 609 804 — 93 609 809</span></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:magasin.central@easc.tn">magasin.central@easc.tn</a></div>
+      <a href="https://maps.google.com" target="_blank" class="store-link">Voir sur Google Maps →</a>
+    </div>
+    <div class="store-card reveal d2">
+      <h3>Hammem Sousse</h3>
+      <div class="sr"><span class="sr-ico">📞</span><span>+216 73 362 982 / 70 279 362</span></div>
+      <div class="sr"><span class="sr-ico">📠</span><span>Fax : +216 70 161 523</span></div>
+      <div class="sr"><span class="sr-ico">📱</span><span>93 609 806</span></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:magasin.hsousse@easc.tn">magasin.hsousse@easc.tn</a></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:caisse.hsousse@easc.tn">caisse.hsousse@easc.tn</a></div>
+      <a href="https://maps.google.com" target="_blank" class="store-link">Voir sur Google Maps →</a>
+    </div>
+    <div class="store-card reveal d3">
+      <h3>Ettaamir Sousse</h3>
+      <div class="sr"><span class="sr-ico">📞</span><span>+216 73 239 110 / 70 279 365</span></div>
+      <div class="sr"><span class="sr-ico">📠</span><span>Fax : +216 70 161 522</span></div>
+      <div class="sr"><span class="sr-ico">📱</span><span>93 609 805</span></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:magasin.taamir@easc.tn">magasin.taamir@easc.tn</a></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:caisse.taamir@easc.tn">caisse.taamir@easc.tn</a></div>
+      <a href="https://maps.google.com" target="_blank" class="store-link">Voir sur Google Maps →</a>
+    </div>
+    <div class="store-card reveal d4">
+      <h3>Magasin Jemmel</h3>
+      <div class="sr"><span class="sr-ico">📞</span><span>+216 73 486 313 / 70 279 368</span></div>
+      <div class="sr"><span class="sr-ico">📠</span><span>Fax : +216 70 161 524</span></div>
+      <div class="sr"><span class="sr-ico">📱</span><span>93 609 802</span></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:magasin.jammel@easc.tn">magasin.jammel@easc.tn</a></div>
+      <div class="sr"><span class="sr-ico">✉</span><a href="mailto:caisse.jemmel@easc.tn">caisse.jemmel@easc.tn</a></div>
+      <a href="https://maps.google.com" target="_blank" class="store-link">Voir sur Google Maps →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     CONTACT
+════════════════════════ -->
+<section id="contact">
+  <div class="sec-label reveal">Nous Écrire</div>
+  <h2 class="sec-h reveal d1">Contactez<br><em>Notre Équipe</em></h2>
+  <div class="sec-rule reveal d2"></div>
+  <p class="sec-body reveal d3" style="margin-bottom:0">
+    Une question, une remarque, une demande de devis ? Remplissez ce formulaire et notre équipe vous répondra dans les meilleurs délais.
+  </p>
+  <div class="contact-layout">
+    <div class="form-wrap reveal-l">
+      <div class="f2">
+        <div class="fg">
+          <label>Nom Complet <span class="req">*</span></label>
+          <input type="text" id="fn" placeholder="Votre nom et prénom"/>
+        </div>
+        <div class="fg">
+          <label>Téléphone</label>
+          <input type="tel" id="ftel" placeholder="+216 XX XXX XXX"/>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Adresse Email <span class="req">*</span></label>
+        <input type="email" id="fem" placeholder="votre@email.com"/>
+      </div>
+      <div class="fg">
+        <label>Sujet <span class="req">*</span></label>
+        <select id="fsub">
+          <option value="" disabled selected>Sélectionnez un sujet</option>
+          <option>Demande de devis</option>
+          <option>Disponibilité d'une pièce</option>
+          <option>Commande en gros / Grossiste</option>
+          <option>Partenariat Commercial</option>
+          <option>Renseignements généraux</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Message <span class="req">*</span></label>
+        <textarea id="fmsg" placeholder="Décrivez votre demande en détail..."></textarea>
+      </div>
+      <button class="f-btn" onclick="sendForm()">Envoyer le Message &nbsp;→</button>
+      <div class="f-ok" id="fok">✅ &nbsp;Message envoyé avec succès. Notre équipe vous contactera bientôt.</div>
+      <div class="f-err" id="ferr">⚠️ &nbsp;Veuillez remplir tous les champs obligatoires correctement.</div>
+    </div>
+    <div class="ci reveal-r">
+      <div class="ci-item">
+        <div class="ci-lbl">Adresse</div>
+        <div class="ci-val">Rte de Tunis Km6<br>4022 – Akouda – B.P.155<br>Tunisie</div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-lbl">Téléphone</div>
+        <div class="ci-val">
+          <a href="tel:+21673342113">+216 73 342 113</a><br>
+          <a href="tel:+21673342114">+216 73 342 114</a><br>
+          <a href="tel:+21673342115">+216 73 342 115</a>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-lbl">GSM</div>
+        <div class="ci-val">
+          <a href="tel:+21693609804">93 609 804</a> &nbsp;·&nbsp;
+          <a href="tel:+21693609809">93 609 809</a> &nbsp;·&nbsp;
+          <a href="tel:+21693609821">93 609 821</a>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-lbl">Fax</div>
+        <div class="ci-val">73 342 120</div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-lbl">Email Direction</div>
+        <div class="ci-val"><a href="mailto:direction.generale@easc.tn">direction.generale@easc.tn</a></div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-lbl">Horaires</div>
+        <div class="ci-hrs">
+          <div class="ch"><span>Lun – Jeu</span><strong>08:00–13:00 / 14:00–17:00</strong></div>
+          <div class="ch"><span>Vendredi</span><strong>08:00–12:00 / 14:00–17:00</strong></div>
+          <div class="ch"><span>Samedi</span><strong>08:00–13:00</strong></div>
+          <div class="ch cl"><span>Dimanche</span><strong>Fermé</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESTIGE BANNER -->
+<div class="prestige">
+  <div class="prestige-left">
+    <h2>Nous Attendons<br><em>Votre Visite</em></h2>
+    <p>Une équipe de professionnels à votre service dans nos 4 points de vente à travers la Tunisie.</p>
+  </div>
+  <div class="prestige-right">
+    <a href="tel:+21673342113">📞 &nbsp;+216 73 342 113</a>
+    <a href="tel:+21673342114">📞 &nbsp;+216 73 342 114</a>
+    <a href="mailto:direction.generale@easc.tn">✉️ &nbsp;direction.generale@easc.tn</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand">ETS <span>AMOR</span> SEGHAIER &amp; CIE</div>
+  <div class="foot-nav">
+    <a href="#accueil">Accueil</a>
+    <a href="#nous-sommes">À Propos</a>
+    <a href="#nos-services">Services</a>
+    <a href="#nos-marques">Marques</a>
+    <a href="#magasins">Magasins</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="foot-copy">© 2024 Ets Amor Seghaier &amp; Cie — Tous droits réservés.</div>
+</footer>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 2200);
+});
+
+/* ── CURSOR ── */
+const dot = document.getElementById('c-dot');
+const ring = document.getElementById('c-ring');
+document.addEventListener('mousemove', e => {
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  }, 90);
+});
+
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  let cur = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 90) cur = s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
+  });
+});
+
+/* ── MOBILE MENU ── */
+function toggleMob() {
+  document.getElementById('mobNav').classList.toggle('open');
+}
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => ro.observe(el));
+
+/* ── FORM ── */
+function sendForm() {
+  const n = document.getElementById('fn').value.trim();
+  const e = document.getElementById('fem').value.trim();
+  const s = document.getElementById('fsub').value;
+  const m = document.getElementById('fmsg').value.trim();
+  const ok = document.getElementById('fok');
+  const err = document.getElementById('ferr');
+  ok.classList.remove('show'); err.classList.remove('show');
+  if (!n || !e || !s || !m || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) {
+    err.classList.add('show'); return;
+  }
+  ok.classList.add('show');
+  ['fn','fem','ftel','fsub','fmsg'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+</script>
+</body>
+</html>
